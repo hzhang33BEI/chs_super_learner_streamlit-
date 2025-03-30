@@ -20,7 +20,7 @@ def data_process(data):
     #  'Metastasis to brain/liver/lung']
     # 本函数对部分变量进行处理，输出顺序对应模型要求的输入格式
     age, tumor_size, gender, his_type, pri_site, grade, surgery, tumor_ext, num_of_tumors, chem, radio, meta_to_bone, meta_to_bll, m_stage, income = data
-    
+
     if income == 0:
         income = 15
     elif income == 1:
@@ -29,6 +29,11 @@ def data_process(data):
         income = 7
     else:
         income = 0
+    
+    if num_of_tumors == 1:
+        num_of_tumors = 0
+    else:
+        num_of_tumors = 1
 
     return [0, 1, age, gender, his_type, pri_site, 4, grade, surgery, radio, chem, tumor_size, num_of_tumors, tumor_ext, 2, meta_to_bone, 3, m_stage, income, meta_to_bll]
 
@@ -67,7 +72,7 @@ def load_setting():
     }
     # 仅选择用于预测的输入项
     input_keys = ['Age', 'Tumor size', 'Gender', 'Histological type', 'Primary site', 'Grade', 'Surgery', 'Tumor extension',
-                  'Distant metastasis', 'Chemotherapy', 'radiotherapy', 'metastasis to bone', 'metastasis to brain/liver/lung',
+                  'Num of tumors', 'Chemotherapy', 'radiotherapy', 'metastasis to bone', 'metastasis to brain/liver/lung',
                   'M stage', 'Income']
     return settings, input_keys
 
