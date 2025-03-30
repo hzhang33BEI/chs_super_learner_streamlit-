@@ -19,8 +19,18 @@ def data_process(data):
     #  'Metastasis to bone', 'T stage', 'M stage', 'income',
     #  'Metastasis to brain/liver/lung']
     # 本函数对部分变量进行处理，输出顺序对应模型要求的输入格式
-    age, tumor_size, gender, his_type, pri_site, grade, surgery, tumor_ext, distant_met, chem, radio, meta_to_bone, meta_to_bll, m_stage, income = data
-    return [0, 1, age, gender, his_type, pri_site, 4, grade, surgery, radio, chem, tumor_size, 0, tumor_ext, 2, meta_to_bone, 3, m_stage, income, meta_to_bll]
+    age, tumor_size, gender, his_type, pri_site, grade, surgery, tumor_ext, num_of_tumors, chem, radio, meta_to_bone, meta_to_bll, m_stage, income = data
+    
+    if income == 0:
+        income = 15
+    elif income == 1:
+        income = 10
+    elif income == 2:
+        income = 7
+    else:
+        income = 0
+
+    return [0, 1, age, gender, his_type, pri_site, 4, grade, surgery, radio, chem, tumor_size, num_of_tumors, tumor_ext, 2, meta_to_bone, 3, m_stage, income, meta_to_bll]
 
 def load_setting():
     settings = {
@@ -36,7 +46,7 @@ def load_setting():
         'Tumor size': {'values': [0, 1000], 'type': 'slider', 'init_value': 135, 'add_after': ', mm'},
         'Tumor extension': {'values': ["No break in periosteum", "Extension beyond periosteum", "Further extension"],
                             'type': 'selectbox', 'init_value': 1, 'add_after': ''},
-        'Distant metastasis': {'values': ["Yes", "None"], 'type': 'selectbox',
+        'Num of tumors': {'values': ["1", ">1"], 'type': 'selectbox',
                                'init_value': 0, 'add_after': ''},
         'Chemotherapy': {'values': ["No", "Yes"], 'type': 'selectbox',
                          'init_value': 0, 'add_after': ''},
