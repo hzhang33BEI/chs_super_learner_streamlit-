@@ -167,9 +167,9 @@ def predict():
     ten_year = scale_result(1 - survival[120, 0])
     
     # 根据 1-year 生存概率确定风险等级
-    if three_year > 0.8:
+    if three_year > 0.85:
         risk_level = "low-risk"
-    elif three_year >= 0.6:
+    elif three_year >= 0.7:
         risk_level = "medium-risk"
     else:
         risk_level = "high-risk"
